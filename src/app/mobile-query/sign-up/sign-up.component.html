@@ -1,0 +1,54 @@
+
+
+
+
+  <mat-card>
+    <mat-card-content class="info">
+      Sign Up
+    </mat-card-content>
+  </mat-card>
+
+
+<div class="container my-4">
+  <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)">
+
+    <!-- First Name and Last Name in one row -->
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>First Name*</mat-label>
+          <input matInput type="text" id="firstName" name="firstName" [(ngModel)]="person.firstName" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Last Name*</mat-label>
+          <input matInput type="text" id="lastName" name="lastName" [(ngModel)]="person.firstName" required>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Mobile input wider than autocomplete list -->
+    <div class="form-group">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Mobile*</mat-label>
+        <input matInput type="text" id="mobile" name="mobile" [(ngModel)]="mobileNumber" (ngModelChange)="search($event)" [matAutocomplete]="auto" required>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onUserSelected($event.option.value)">
+          <mat-option *ngFor="let user of users" [value]="user">
+            {{ user.firstName }} {{ user.lastName }} [{{ user.contactNo }}]
+          </mat-option>
+        </mat-autocomplete>
+        
+      </mat-form-field>
+    </div>
+
+
+    <!-- Submit Button -->
+    <div class="row">
+      <div class="col">
+        <button type="submit" class="w-100 btn btn-success" [disabled]="!signupForm.valid">Sign up</button>
+      </div>
+    </div>
+
+  </form>
+</div>
